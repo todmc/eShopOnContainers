@@ -29,4 +29,3 @@ cli-linux
 **/bower_components/
 **/wwwroot/lib/
 global.json
-src/Web/WebSPA/wwwroot/

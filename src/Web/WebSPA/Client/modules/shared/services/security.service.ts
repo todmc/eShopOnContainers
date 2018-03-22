@@ -25,7 +25,7 @@ export class SecurityService {
         this.storage = _storageService;
 
         this._configurationService.settingsLoaded$.subscribe(x => {
-            this.authorityUrl = this._configurationService.serverSettings.identityUrl
+            this.authorityUrl = this._configurationService.serverSettings.identityUrl;
             this.storage.store('IdentityUrl', this.authorityUrl);
         });
 
@@ -228,7 +228,7 @@ export class SecurityService {
             headers: this.headers,
             body: ''
         }).map(res => res.json());
-    }
+    };
 
     private setHeaders() {
         this.headers = new Headers();

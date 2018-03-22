@@ -78,7 +78,6 @@ namespace Microsoft.eShopOnContainers.BuildingBlocks.Resilience.Http
             return response;
         }
 
-
         public async Task<HttpResponseMessage> PostAsync<T>(string uri, T item, string authorizationToken = null, string requestId = null, string authorizationMethod = "Bearer")
         {
             return await DoPostPutAsync(HttpMethod.Post, uri, item, authorizationToken, requestId, authorizationMethod);
@@ -88,6 +87,7 @@ namespace Microsoft.eShopOnContainers.BuildingBlocks.Resilience.Http
         {
             return await DoPostPutAsync(HttpMethod.Put, uri, item, authorizationToken, requestId, authorizationMethod);
         }
+
         public async Task<HttpResponseMessage> DeleteAsync(string uri, string authorizationToken = null, string requestId = null, string authorizationMethod = "Bearer")
         {
             var requestMessage = new HttpRequestMessage(HttpMethod.Delete, uri);

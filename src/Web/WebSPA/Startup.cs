@@ -54,8 +54,8 @@ namespace eShopConContainers.WebSPA
                 checks.AddUrlCheck(Configuration["BasketUrlHC"], TimeSpan.Zero); //No cache for this HealthCheck, better just for demos 
                 checks.AddUrlCheck(Configuration["IdentityUrlHC"], TimeSpan.FromMinutes(minutes));
                 checks.AddUrlCheck(Configuration["MarketingUrlHC"], TimeSpan.FromMinutes(minutes));
-            
-        });
+
+            });
 
             services.Configure<AppSettings>(Configuration);
 
@@ -76,7 +76,6 @@ namespace eShopConContainers.WebSPA
                     options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 });
         }
-
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IAntiforgery antiforgery)
@@ -125,12 +124,12 @@ namespace eShopConContainers.WebSPA
                 // Rewrite request to use app root
                 if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value) && !context.Request.Path.Value.StartsWith("/api"))
                 {
-                    context.Request.Path = "/index.html"; 
+                    context.Request.Path = "/index.html";
                     context.Response.StatusCode = 200; // Make sure we update the status code, otherwise it returns 404
                     await next();
                 }
             });
-            
+
             app.UseDefaultFiles();
             app.UseStaticFiles();
 

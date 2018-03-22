@@ -24,7 +24,7 @@ namespace Microsoft.eShopOnContainers.BuildingBlocks.Resilience.Http
         private readonly HttpClient _client;
         private readonly ILogger<ResilientHttpClient> _logger;
         private readonly Func<string, IEnumerable<Policy>> _policyCreator;
-        private ConcurrentDictionary<string, PolicyWrap> _policyWrappers;
+        private readonly ConcurrentDictionary<string, PolicyWrap> _policyWrappers;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public ResilientHttpClient(Func<string, IEnumerable<Policy>> policyCreator, ILogger<ResilientHttpClient> logger, IHttpContextAccessor httpContextAccessor)
@@ -35,7 +35,6 @@ namespace Microsoft.eShopOnContainers.BuildingBlocks.Resilience.Http
             _policyWrappers = new ConcurrentDictionary<string, PolicyWrap>();
             _httpContextAccessor = httpContextAccessor;
         }
-
 
         public Task<HttpResponseMessage> PostAsync<T>(string uri, T item, string authorizationToken = null, string requestId = null, string authorizationMethod = "Bearer")
         {
@@ -60,7 +59,7 @@ namespace Microsoft.eShopOnContainers.BuildingBlocks.Resilience.Http
                 if (authorizationToken != null)
                 {
                     requestMessage.Headers.Authorization = new AuthenticationHeaderValue(authorizationMethod, authorizationToken);
-                }                
+                }
 
                 if (requestId != null)
                 {
@@ -70,7 +69,6 @@ namespace Microsoft.eShopOnContainers.BuildingBlocks.Resilience.Http
                 return await _client.SendAsync(requestMessage);
             });
         }
-        
 
         public Task<string> GetStringAsync(string uri, string authorizationToken = null, string authorizationMethod = "Bearer")
         {
@@ -158,7 +156,6 @@ namespace Microsoft.eShopOnContainers.BuildingBlocks.Resilience.Http
             // the policies defined in the wrapper
             return await policyWrap.ExecuteAsync(action, new Context(normalizedOrigin));
         }
-
 
         private static string NormalizeOrigin(string origin)
         {
